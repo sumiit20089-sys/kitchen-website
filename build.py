@@ -104,12 +104,12 @@ def slugify(text):
 
 def make_product_card(title, category, price):
     slug = slugify(title)
-    local_img = f"assets/images/{category}/{slug}.jpg"
+    local_img = f"assets/images/{category}/{slug}.webp"
     desc = f"Premium {title.lower()} designed to bring convenience and elegance to your daily routine."
     
     return f'''
         <article class="product-card card" style="padding:0; overflow:hidden;">
-          <img src="{local_img}" alt="{title}" class="product-img" loading="lazy">
+          <img src="{local_img}" alt="{title}" class="product-img" loading="lazy" decoding="async">
           <div class="product-content" style="padding: 1.5rem;">
             <h3 class="product-title">{title}</h3>
             <p class="product-desc" style="flex-grow:1;">{desc}</p>
@@ -125,7 +125,7 @@ print("Rapidly rebuilding HTML with updated small business structure...")
 # 1. INDEX PAGE
 index_content = f'''
   <main>
-    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/images/hero.jpg'); background-size: cover; background-position: center; color: white;">
+    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/images/hero.webp'); background-size: cover; background-position: center; color: white;">
       <div class="container">
         <h1 style="color: white;">Transform Your Home Experience</h1>
         <p style="color: #f0f0f0;">Discover our curated collection of premium home and kitchen gadgets designed to make your life easier and more efficient.</p>
@@ -141,7 +141,7 @@ index_content = f'''
         </div>
         <div class="grid-3">
           <div class="card" style="padding: 0; overflow: hidden;">
-            <img src="assets/images/kitchen/category.jpg" alt="Kitchen Appliances" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <img src="assets/images/kitchen/category.webp" alt="Kitchen Appliances" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
             <div style="padding: 1.5rem;">
               <h3>Kitchen Appliances</h3>
               <p>Innovative tools for everyday cooking.</p>
@@ -149,7 +149,7 @@ index_content = f'''
             </div>
           </div>
           <div class="card" style="padding: 0; overflow: hidden;">
-            <img src="assets/images/home/category.jpg" alt="Home Organization" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <img src="assets/images/home/category.webp" alt="Home Organization" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
             <div style="padding: 1.5rem;">
               <h3>Home Essentials</h3>
               <p>Everything you need for a comfortable living space.</p>
@@ -157,7 +157,7 @@ index_content = f'''
             </div>
           </div>
           <div class="card" style="padding: 0; overflow: hidden;">
-            <img src="assets/images/smart/category.jpg" alt="Smart Home" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <img src="assets/images/smart/category.webp" alt="Smart Home" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy" decoding="async">
             <div style="padding: 1.5rem;">
               <h3>Smart Home</h3>
               <p>Automate your home with cutting-edge tech.</p>
@@ -299,7 +299,7 @@ about_content = f'''
   </div>
   <main class="container">
     <div class="content-box">
-      <img src="assets/images/about.jpg" alt="Modern Kitchen Interior" style="width: 100%; height: 400px; object-fit: cover; border-radius: var(--radius); margin-bottom: 2rem;" loading="lazy">
+      <img src="assets/images/about.webp" alt="Modern Kitchen Interior" style="width: 100%; height: 400px; object-fit: cover; border-radius: var(--radius); margin-bottom: 2rem;" loading="lazy" decoding="async">
       <h2>Our Story</h2>
       <p>Welcome to HomeEase Gadgets. We started with a simple vision: to bring innovative, high-quality, and aesthetically pleasing products into every home.</p>
     </div>
@@ -317,7 +317,7 @@ contact_content = f'''
   </div>
   <main class="container">
     <div class="content-box">
-      <img src="assets/images/contact.jpg" alt="Customer Support Office" style="width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius); margin-bottom: 2rem;" loading="lazy">
+      <img src="assets/images/contact.webp" alt="Customer Support Office" style="width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius); margin-bottom: 2rem;" loading="lazy" decoding="async">
       <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 4rem;">
         <div>
           <h2>Get In Touch</h2>
