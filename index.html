@@ -6,6 +6,14 @@
   <title>Premium Home & Kitchen Gadgets | HomeEase Gadgets</title>
   <meta name="description" content="Shop premium home and kitchen gadgets at HomeEase Gadgets.">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .product-img {
+      object-fit: cover;
+      height: 250px;
+      width: 100%;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -18,9 +26,7 @@
       </div>
       <nav class="nav-links">
         <a href="index.html" class="active">Home</a>
-        <a href="kitchen.html">Kitchen</a>
-        <a href="home.html">Home Essentials</a>
-        <a href="smart.html">Smart Gadgets</a>
+        <a href="products.html">Products</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
@@ -28,12 +34,12 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/images/hero.jpg'); background-size: cover; background-position: center; color: white;">
       <div class="container">
-        <h1>Transform Your Home Experience</h1>
-        <p>Discover our curated collection of premium home and kitchen gadgets designed to make your life easier and more efficient.</p>
-        <a href="kitchen.html" class="btn btn-primary" style="margin-right:1rem;">Explore Collection</a>
-        <a href="about.html" class="btn btn-outline">Learn More</a>
+        <h1 style="color: white;">Transform Your Home Experience</h1>
+        <p style="color: #f0f0f0;">Discover our curated collection of premium home and kitchen gadgets designed to make your life easier and more efficient.</p>
+        <a href="products.html" class="btn btn-primary" style="margin-right:1rem;">Explore Collection</a>
+        <a href="about.html" class="btn btn-outline" style="border-color: white; color: white;">Learn More</a>
       </div>
     </section>
 
@@ -41,32 +47,119 @@
       <div class="container">
         <div class="section-title">
           <h2>Featured Categories</h2>
-          <p>Browse our top-rated product categories to find exactly what you need for a modern home.</p>
         </div>
         <div class="grid-3">
-          <div class="card">
-            <div class="card-icon">🍳</div>
-            <h3>Kitchen Gadgets</h3>
-            <p>Innovative tools for everyday cooking.</p>
-            <a href="kitchen.html" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+          <div class="card" style="padding: 0; overflow: hidden;">
+            <img src="assets/images/kitchen/category.jpg" alt="Kitchen Appliances" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <div style="padding: 1.5rem;">
+              <h3>Kitchen Appliances</h3>
+              <p>Innovative tools for everyday cooking.</p>
+              <a href="products.html#kitchen" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+            </div>
           </div>
-          <div class="card">
-            <div class="card-icon">🏠</div>
-            <h3>Home Essentials</h3>
-            <p>Everything you need for a comfortable living space.</p>
-            <a href="home.html" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+          <div class="card" style="padding: 0; overflow: hidden;">
+            <img src="assets/images/home/category.jpg" alt="Home Organization" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <div style="padding: 1.5rem;">
+              <h3>Home Essentials</h3>
+              <p>Everything you need for a comfortable living space.</p>
+              <a href="products.html#home" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+            </div>
           </div>
-          <div class="card">
-            <div class="card-icon">📱</div>
-            <h3>Smart Gadgets</h3>
-            <p>Automate your home with cutting-edge tech.</p>
-            <a href="smart.html" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+          <div class="card" style="padding: 0; overflow: hidden;">
+            <img src="assets/images/smart/category.jpg" alt="Smart Home" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+            <div style="padding: 1.5rem;">
+              <h3>Smart Home</h3>
+              <p>Automate your home with cutting-edge tech.</p>
+              <a href="products.html#smart" class="btn btn-outline" style="margin-top:1rem;">Shop Now</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section bg-light">
+      <div class="container">
+        <div class="section-title">
+          <h2>Featured Products</h2>
+        </div>
+        <div class="grid-3">
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/kitchen/air-fryer.jpg" alt="Air Fryer" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Air Fryer</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium air fryer designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$99.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/home/vacuum-cleaner.jpg" alt="Vacuum Cleaner" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Vacuum Cleaner</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium vacuum cleaner designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$149.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/smart/robot-vacuum.jpg" alt="Robot Vacuum" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Robot Vacuum</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium robot vacuum designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$199.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/kitchen/coffee-maker.jpg" alt="Coffee Maker" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Coffee Maker</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium coffee maker designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$89.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/home/air-purifier.jpg" alt="Air Purifier" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Air Purifier</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium air purifier designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$129.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+            
+        <article class="product-card card" style="padding:0; overflow:hidden;">
+          <img src="assets/images/smart/smart-doorbell.jpg" alt="Smart Doorbell" class="product-img" loading="lazy">
+          <div class="product-content" style="padding: 1.5rem;">
+            <h3 class="product-title">Smart Doorbell</h3>
+            <p class="product-desc" style="flex-grow:1;">Premium smart doorbell designed to bring convenience and elegance to your daily routine.</p>
+            <div class="product-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <span class="product-price" style="font-weight:bold; font-size:1.2rem; color:var(--primary-color);">$109.99</span>
+              <a href="contact.html" class="btn btn-outline">View Details</a>
+            </div>
+          </div>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="container">
         <div class="section-title">
           <h2>Why Choose Us</h2>
@@ -92,27 +185,37 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section bg-light">
       <div class="container">
         <div class="section-title">
-          <h2>Customer Reviews</h2>
+          <h2>Frequently Asked Questions</h2>
         </div>
-        <div class="grid-3">
-          <div class="card" style="text-align:left;">
-            <p style="font-style:italic;">"The smart kitchen scale I bought is amazing. It connects instantly to my phone. Highly recommend HomeEase!"</p>
-            <h4 style="margin-bottom:0; margin-top:1rem;">- Sarah J.</h4>
-            <span style="color:#ffc107;">★★★★★</span>
-          </div>
-          <div class="card" style="text-align:left;">
-            <p style="font-style:italic;">"Excellent customer service and fast shipping. The home essentials collection has exactly what I was looking for."</p>
-            <h4 style="margin-bottom:0; margin-top:1rem;">- Michael T.</h4>
-            <span style="color:#ffc107;">★★★★★</span>
-          </div>
-          <div class="card" style="text-align:left;">
-            <p style="font-style:italic;">"I have automated my entire living room using their smart gadgets. Great prices and reliable products."</p>
-            <h4 style="margin-bottom:0; margin-top:1rem;">- David L.</h4>
-            <span style="color:#ffc107;">★★★★★</span>
-          </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <h3>Do you ship internationally?</h3>
+                <p>Yes, we ship to most countries worldwide. Shipping costs will apply and will be added at checkout.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is your return policy?</h3>
+                <p>We accept returns within 30 days of the original purchase date for items in unused condition.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Are the smart gadgets compatible with Alexa and Google Home?</h3>
+                <p>Yes, all our smart gadgets integrate seamlessly with major smart home ecosystems.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="newsletter-box">
+          <h2>Join Our Newsletter</h2>
+          <p style="margin-bottom: 2rem;">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+          <form style="display:flex; justify-content:center; flex-wrap:wrap; align-items:center;" onsubmit="event.preventDefault(); alert('Subscribed!');">
+              <input type="email" placeholder="Enter your email address" required>
+              <button type="submit" class="btn btn-outline" style="background:white; color:var(--primary-color); border:2px solid white; margin-bottom:10px;">Subscribe</button>
+          </form>
         </div>
       </div>
     </section>
@@ -126,19 +229,17 @@
           <p>Your premium destination for modern, innovative, and reliable home and kitchen essentials.</p>
         </div>
         <div>
-          <h3>Categories</h3>
+          <h3>Customer Support</h3>
           <ul>
-            <li><a href="kitchen.html">Kitchen Gadgets</a></li>
-            <li><a href="home.html">Home Essentials</a></li>
-            <li><a href="smart.html">Smart Gadgets</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="about.html">About Us</a></li>
           </ul>
         </div>
         <div>
           <h3>Quick Links</h3>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="products.html">All Products</a></li>
           </ul>
         </div>
         <div>
